@@ -1,21 +1,18 @@
 var selectedFile = document.getElementById('file').addEventListener('change', fileRead, false);
-var text = document.getElementById('text');
 
-function fileRead(evt) {
-    var files = evt.target.files;
+function fileRead(event) {
+    var file = event.target.files[0];
 
-    if (files) {
-        for (var i = 0, f; f = files[i]; i++) {
-            var r = new FileReader();
-            r.onload = (function(f) {
-                return function(e) {
-                    var contents = e.target.result;
-                    console.log(contents);
-                };
-            })(f);
+    if (file) {
+        var r = new FileReader();
+        r.onload = (function(f) {
+            return function(e) {
+                var contents = e.target.result;
+                paperParse(contents);
+            }
+        })(file);
 
-            r.readAsText(f);
-        }
+        r.readAsText(file);
     } else {
         alert("Failed to load files");
     }
