@@ -7,8 +7,11 @@ function fileRead(event) {
         var r = new FileReader();
         r.onload = (function(f) {
             return function(e) {
-                var contents = e.target.result;
-                paperParse(contents);
+                var content = e.target.result;
+                paperParse(content, field, data);
+
+                console.log(field);
+                console.log(data);
             }
         })(file);
 
